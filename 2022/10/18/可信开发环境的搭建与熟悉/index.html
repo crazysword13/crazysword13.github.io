@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>可信开发环境的搭建与熟悉 | 剑来</title><meta name="keywords" content="可信计算"><meta name="author" content="crazysword13"><meta name="copyright" content="crazysword13"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="实验一 可信开发环境的搭建与熟悉一、实验目的 初步掌握开发环境的安装与测试； 熟悉相关接口的调用流程； 掌握程序的编译与调试方法。  二、实验环境 Linux操作系统（内核2.6.12版本及以上）； TPM模拟器——Tpm_emulator TSS软件栈——trousers软件包  三、实验原理在可信平台体系结构中可以看到，在底层硬件TPM的支撑下，通过TPM设备驱动程序建立操作系统与硬件TPM之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可信开发环境的搭建与熟悉">
+<meta property="og:url" content="http://crazysword13.github.io/2022/10/18/%E5%8F%AF%E4%BF%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%86%9F%E6%82%89/index.html">
+<meta property="og:site_name" content="剑来">
+<meta property="og:description" content="实验一 可信开发环境的搭建与熟悉一、实验目的 初步掌握开发环境的安装与测试； 熟悉相关接口的调用流程； 掌握程序的编译与调试方法。  二、实验环境 Linux操作系统（内核2.6.12版本及以上）； TPM模拟器——Tpm_emulator TSS软件栈——trousers软件包  三、实验原理在可信平台体系结构中可以看到，在底层硬件TPM的支撑下，通过TPM设备驱动程序建立操作系统与硬件TPM之">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://crazysword13.github.io/img/1.png">
+<meta property="article:published_time" content="2022-10-18T09:03:56.000Z">
+<meta property="article:modified_time" content="2023-02-07T06:41:07.181Z">
+<meta property="article:author" content="crazysword13">
+<meta property="article:tag" content="可信计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://crazysword13.github.io/img/1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://crazysword13.github.io/2022/10/18/%E5%8F%AF%E4%BF%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%86%9F%E6%82%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '可信开发环境的搭建与熟悉',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-07 14:41:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/auther.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">剑来</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">可信开发环境的搭建与熟悉</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-18T09:03:56.000Z" title="Created 2022-10-18 17:03:56">2022-10-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-02-07T06:41:07.181Z" title="Updated 2023-02-07 14:41:07">2023-02-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA%E4%B8%8E%E6%8A%80%E6%9C%AF-%E5%AE%9E%E9%AA%8C/">可信计算理论与技术-实验</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="可信开发环境的搭建与熟悉"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="实验一-可信开发环境的搭建与熟悉"><a href="#实验一-可信开发环境的搭建与熟悉" class="headerlink" title="实验一 可信开发环境的搭建与熟悉"></a>实验一 可信开发环境的搭建与熟悉</h1><h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li>初步掌握开发环境的安装与测试；</li>
+<li>熟悉相关接口的调用流程；</li>
+<li>掌握程序的编译与调试方法。</li>
+</ol>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ol>
+<li>Linux操作系统（内核2.6.12版本及以上）；</li>
+<li>TPM模拟器——Tpm_emulator</li>
+<li>TSS软件栈——trousers软件包</li>
+</ol>
+<h2 id="三、实验原理"><a href="#三、实验原理" class="headerlink" title="三、实验原理"></a>三、实验原理</h2><p>在可信平台体系结构中可以看到，在底层硬件TPM的支撑下，通过TPM设备驱动程序建立操作系统与硬件TPM之间的通信通道，通过TSS软件栈建立应用程序与TPM之间的逻辑通道。</p>
+<p>针对硬件TPM，计算机加电时TPM自动加电并初始化。对TPM软件模拟器，必须在操作系统中首先安装并运行模拟器，然后安装并允许TSS软件栈。确定模拟器和软件栈正常运行后，通过应用程序或TSS接口实现对TPM的功能调用。</p>
+<p>硬件TPM可以提供密钥对的生成、随机数生成、签名&#x2F;验签、摘要运算等功能，但是，对于模拟器来说，自身不提供密码算法，需要底层软件或硬件密码模块的支持。</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\1.png" alt="1"></p>
+<h2 id="四、实验步骤"><a href="#四、实验步骤" class="headerlink" title="四、实验步骤"></a>四、实验步骤</h2><h3 id="1-1-安装准备"><a href="#1-1-安装准备" class="headerlink" title="1.1 安装准备"></a>1.1 安装准备</h3><h4 id="（1）内核"><a href="#（1）内核" class="headerlink" title="（1）内核"></a>（1）内核</h4><p>Linux系统下，内核2.6.12版本及以上提供了对TPM芯片的支持，如果不能满足请下载满足要求的版本，下载地址：<a target="_blank" rel="noopener" href="http://www.kernel.org/pub/linux/kernel/v2.6/%E3%80%82">http://www.kernel.org/pub/linux/kernel/v2.6/。</a></p>
+<h4 id="（2）算法库支持"><a href="#（2）算法库支持" class="headerlink" title="（2）算法库支持"></a>（2）算法库支持</h4><p>Gmplib库提供一些密码学算法的支持，如果没有安装请下载并安装，下载地址：<a target="_blank" rel="noopener" href="http://gmplib.org/%E3%80%82">http://gmplib.org/。</a></p>
+<h4 id="（3）Tpm-emulator软件"><a href="#（3）Tpm-emulator软件" class="headerlink" title="（3）Tpm_emulator软件"></a>（3）Tpm_emulator软件</h4><p>Tpm_emulator模拟TPM芯片（相当于虚拟的芯片），如果本机没有TPM硬件的支持，可以下载该软件，下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/tpm-emulator.berlios/%E3%80%82%E5%85%B3%E4%BA%8ETPM">https://sourceforge.net/projects/tpm-emulator.berlios/。关于TPM</a> Emulator的更多细节，请参考参考文献《TPM-Emulator》。</p>
+<h4 id="（4）TSS软件栈"><a href="#（4）TSS软件栈" class="headerlink" title="（4）TSS软件栈"></a>（4）TSS软件栈</h4><p>TSS 软件栈包括 TrouSerS、grub-ima、openssl_tpm_engine、tpm_keyring、tpm-tools，TrouSerS 软件包提供一些 TPM 的 API 函数，其软件包下载地址：<a target="_blank" rel="noopener" href="http://sourceforge.net/project/showfiles.php?group_id=126012%E3%80%82">http://sourceforge.net/project/showfiles.php?group_id=126012。</a></p>
+<p>TrouSerS 安装所需环境如表 1 所示。</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\2.png"></p>
+<p>安装openssl-0.9.8以及它所依赖的glibc2.4软件下载地址：<a target="_blank" rel="noopener" href="http://rpmfind.net/linux/rpm2html/search.php">http://rpmfind.net/linux/rpm2html/search.php</a>?</p>
+<p>安装、卸载命令：<code>rpm -ivh/-e –enforce –nodeps XXXX</code></p>
+<h3 id="1-2-内核编译"><a href="#1-2-内核编译" class="headerlink" title="1.2 内核编译"></a>1.2 内核编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（注意：本部分内容可以暂时不执行，需要时再执行）</span><br><span class="line">#make menuconfig</span><br><span class="line">在内核配置文件中选中如下参数即可将TPM驱动编入内核。</span><br><span class="line">Device Driver-&gt;</span><br><span class="line">Character Device-&gt;</span><br><span class="line">[*] TPM Hardware Support-&gt;</span><br><span class="line">[*] TPM Interface Specification 1.2 Interface</span><br><span class="line">#make bzImage; make modules; make modules_install; make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-Gmplib-安装"><a href="#1-3-Gmplib-安装" class="headerlink" title="1.3 Gmplib 安装"></a>1.3 Gmplib 安装</h3><h4 id="1-3-1-安装m4"><a href="#1-3-1-安装m4" class="headerlink" title="1.3.1 安装m4"></a>1.3.1 安装m4</h4><p>安装GMP 之前需要先安装m4 (不然会出错），m4可以通过命名自动安装<code>$sudo apt-get install m4</code></p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\3.png" alt="3"></p>
+<h4 id="1-3-2-安装gmplib"><a href="#1-3-2-安装gmplib" class="headerlink" title="1.3.2 安装gmplib"></a>1.3.2 安装gmplib</h4><p>去去libgmp官网下载最新的gmp包，<a target="_blank" rel="noopener" href="https://gmplib.org/%EF%BC%8C%E4%BE%8B%E5%A6%82%E6%88%91%E4%B8%8B%E8%BD%BD%E7%9A%84%E6%98%AF%60gmp-6.1.2.tar.bz2%60">https://gmplib.org/，例如我下载的是`gmp-6.1.2.tar.bz2`</a></p>
+<p>先使用<code>lzip -d gmp-6.2.1.tar.lz </code>将文件解压为<code>tar</code>文件，再调用<code>tar -xvf gmp-6.2.1.tar</code>进行文件解压</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\4.png" alt="img"></p>
+<p>之后按照如下指令操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cd gmp-6.2.1</span><br><span class="line">$./configure</span><br><span class="line">$make</span><br><span class="line">$make check</span><br><span class="line">$sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>发现在<code>./configure</code>这一步时，怎么样都无法生成<code>makefile</code>文件，为此，先是调用以下指令安装<code>依赖[gcc]，g++</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc</span><br><span class="line">sudo apt-get install g++</span><br></pre></td></tr></table></figure>
+
+<p>再通过以下两个命令在线安装libgmp库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#sudo apt-get install libgmp10</span><br><span class="line">#sudo apt-get install libgmp-dev</span><br></pre></td></tr></table></figure>
+
+<p>最后再进行<code>./configure</code>这一步，能够成功向下执行命令，最后安装完成后截图如下：</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\5.png" alt="5"></p>
+<h3 id="1-4-Tpm-emulator-安装"><a href="#1-4-Tpm-emulator-安装" class="headerlink" title="1.4 Tpm_emulator 安装"></a>1.4 Tpm_emulator 安装</h3><h4 id="1-4-1-安装cmake"><a href="#1-4-1-安装cmake" class="headerlink" title="1.4.1 安装cmake"></a>1.4.1 安装cmake</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install cmake</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\6.png" alt="6"></p>
+<h4 id="1-4-2-安装Tpm-emulator"><a href="#1-4-2-安装Tpm-emulator" class="headerlink" title="1.4.2 安装Tpm_emulator"></a>1.4.2 安装Tpm_emulator</h4><p>前往官网<a target="_blank" rel="noopener" href="https://github.com/PeterHuewe/tpm-emulator%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85">https://github.com/PeterHuewe/tpm-emulator下载安装包</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#unzip tpm-emulator-master.zip</span><br><span class="line"># cd tpm-emulator-master	//进入tpm-emulator-master目录</span><br><span class="line"># mkdir build	 		//创建build目录</span><br><span class="line"># cd build 				//进入 build 目录</span><br><span class="line"># cmake ../ 			//若提示cmake未安装，参见“1.6其他安装”的“（2）安装cmake”</span><br><span class="line"># make 					//若提示/lib/modules/***/build不存在，说明内核不支持模块开发，需要手动编译内							核，具体参见“1.2内核编译”（特别注意，该操作请慎重进行）</span><br><span class="line"># make install</span><br></pre></td></tr></table></figure>
+
+<p>成功后，截图如下</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\7.png" alt="7"></p>
+<h4 id="1-4-3-初始化"><a href="#1-4-3-初始化" class="headerlink" title="1.4.3 初始化"></a>1.4.3 初始化</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">按照上面步骤安装完毕后，执行初始化操作（以下的命令可能需要权限，若不成功，自行尝试sudo模式）</span><br><span class="line">#tpmd deactivated</span><br><span class="line">#killall tpmd</span><br><span class="line">#tpmd clear</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\8.png" alt="8"></p>
+<h4 id="1-4-4-启动TPM模拟器"><a href="#1-4-4-启动TPM模拟器" class="headerlink" title="1.4.4 启动TPM模拟器"></a>1.4.4 启动TPM模拟器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#sudo modprobe tpmd_dev //如果出现FATAL: Module tpmd_dev not found，则先运行#sudo depmod -a</span><br><span class="line">#sudo tpmd -f –d 		//-d参数使能debug模式，-f参数强制应用程序运行在forground</span><br><span class="line">//若出现Error:bind(/var/run/tpm/tpmd_socket:0) failed，则运行命令rm /var/run/tpm/tpmd_socket:0</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\9.png"></p>
+<h3 id="1-5-TSS-安装"><a href="#1-5-TSS-安装" class="headerlink" title="1.5 TSS 安装"></a>1.5 TSS 安装</h3><h4 id="1-5-1-解压Trousers软件包"><a href="#1-5-1-解压Trousers软件包" class="headerlink" title="1.5.1 解压Trousers软件包"></a>1.5.1 解压Trousers软件包</h4><p>下载链接：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/trousers/files/">TrouSerS - Browse Files at SourceForge.net</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#tar -axvf trousers-0.3.14.tar.gz</span><br><span class="line">#cd trousers-0.3.14</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-2-重定向tddl"><a href="#1-5-2-重定向tddl" class="headerlink" title="1.5.2 重定向tddl"></a>1.5.2 重定向tddl</h4><p><strong>如果下载的trousers包是0.3.14版本，则不需要重定向，网上需要更改的版本大多数是0.3.8版本。0.3.8版本 才需要修改Makefile.am和Makefile.in文件 ， 会遇到Werror、ld链接库等报错问题 。推荐本文使用的 0.3.14版本。</strong></p>
+<p>这里如果下载的是<code>trousers-0.3.8</code>，则需要作出以下更改：</p>
+<p>①由于使用TPM模拟器，编译trousers前需要将tddl库改为TPM模拟器提供的tddl</p>
+<p>修改.&#x2F;src&#x2F;tcsd&#x2F;Makefile.am第4行：将“${top_builddir}&#x2F;tcs&#x2F;libtcs.a ..&#x2F;tddl&#x2F;libtddl.a –lpthread”中的“..&#x2F;tddl&#x2F;libtddl.a”修改为：“&#x2F;usr&#x2F;lib&#x2F;libtddl.so”或“&#x2F;usr&#x2F;local&#x2F;lib&#x2F;libtddl.so”。具体修改为前者还是后者需要依据libtddl.so的实际位置确定。本例中修改为后者。</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\10.png"></p>
+<p>②修改.&#x2F;src&#x2F;tcsd&#x2F;Makefile.in 第55行：将“${top_builddir}&#x2F;src&#x2F;tcs&#x2F;libtcs.a ..&#x2F;tddl&#x2F;libtddl.a”中的“..&#x2F;tddl&#x2F;libtddl.a”修改为：<br>“&#x2F;usr&#x2F;lib&#x2F;libtddl.so”或“&#x2F;usr&#x2F;local&#x2F;lib&#x2F;libtddl.so”。具体修改为前者还是后者需要依据libtddl.so的实际位置确定。本例中修改为后者。</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\11.png" alt="11"></p>
+<h4 id="1-5-2-修改-Trousers-Bug"><a href="#1-5-2-修改-Trousers-Bug" class="headerlink" title="1.5.2 修改 Trousers Bug"></a>1.5.2 修改 Trousers Bug</h4><p>在.&#x2F;src&#x2F;include&#x2F;obj_context.h第79行：修改“struct tcs_api_table *obj_context_get_tcs_api(); ”  中“obj_context_get_tcs_api() ” 为“obj_context_get_tcs_api(UINT32)”。</p>
+<h4 id="1-5-3-编译，安装"><a href="#1-5-3-编译，安装" class="headerlink" title="1.5.3 编译，安装"></a>1.5.3 编译，安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#automake --version 	//查看automake是否安装及版本号。（若提示无命令，则离线安装执行</span><br><span class="line">						$sudo dpkg -i automake_1.11.3-1ubuntu2_all.deb</span><br><span class="line">						或在线安装#sudo apt-get install automake。</span><br><span class="line">						库的版本依据实际其概况进行修改）</span><br><span class="line">#autoconf --version 	//查看autoconf是否安装及版本号。（若提示无命令，则离线安装执行</span><br><span class="line">						$sudo sudo dpkg -i autoconf_2.68-1ubuntu2_all.deb</span><br><span class="line">						或在线安装#sudo apt-get install autoconf。库的版本依据实际其概况进行修改）</span><br><span class="line">#sh bootstrap.sh 		//若无bootstrap.sh文件，此步不用执行</span><br><span class="line">#./configure		   // （若没有生成Makefile文件，查看错误提示，若是没有安装openssl，</span><br><span class="line">						则在线安装，依次执行如下命令</span><br><span class="line">						sudo apt-get install libssl0.9.8、(我虚拟机上的资源是libssl1.1)</span><br><span class="line">						sudo apt-get install libssl-dev、</span><br><span class="line">						sudo apt-get install openssl。库的版本依据实际其概况进行修改）</span><br><span class="line">#make</span><br><span class="line">#make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-4-安装tpm-tools软件包"><a href="#1-5-4-安装tpm-tools软件包" class="headerlink" title="1.5.4 安装tpm-tools软件包"></a>1.5.4 安装tpm-tools软件包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">进入tpm-tools软件包的README中，查看安装所需要的软件依赖包，配置完成后再按照步骤开始安装。</span><br><span class="line">安装过程：</span><br><span class="line">#sh bootstrap.sh</span><br><span class="line">#./configure</span><br><span class="line">#make</span><br><span class="line">#make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-5-启动Trousers"><a href="#1-5-5-启动Trousers" class="headerlink" title="1.5.5 启动Trousers"></a>1.5.5 启动Trousers</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#tcsd –e –f</span><br><span class="line">（注意：若出现 TCSD TCS ERROR: TCS GetCapability failed with result = 0x1c，这是由于上次启动 TPM 没有正常退出，并且本次以默认的 SAVE 方式启动，进而自检不通过。需要将#tpmd -f -d （如果不指定，默认的是 save 方式）换成#tpmd -f -d clear 即可。</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-6-测试Trousers"><a href="#1-5-6-测试Trousers" class="headerlink" title="1.5.6 测试Trousers"></a>1.5.6 测试Trousers</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">① 在一个终端窗口中启动Tpm_emulator（具体命令参见相应部分的内容）；</span><br><span class="line">② 在新的终端窗口中启动Trousers（具体命令参见相应部分的内容）；</span><br><span class="line">③ 执行如下命令：</span><br><span class="line">#cd tpm_emulator-X.Y.Z/tddl（X、Y、Z的值依据实际版本号确定，本例为tpm-emulator-master）</span><br><span class="line">cd tpm-emulator-master/tddl</span><br></pre></td></tr></table></figure>
+
+<p>① 在一个终端窗口中启动Tpm_emulator（具体命令参见相应部分的内容）；</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\12.png"></p>
+<p>② 在新的终端窗口中启动Trousers，执行如下命令：<code>cd tpm-emulator-master/tddl</code></p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\13.png"></p>
+<p>按照如下命令执行即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#cmake ../ 			//当前目录为tpm-emulator-master/tddl</span><br><span class="line">#cd tddl</span><br><span class="line">#make</span><br><span class="line">#sudo ./test_tddl</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\14.png"></p>
+<h3 id="1-6-其他安装"><a href="#1-6-其他安装" class="headerlink" title="1.6 其他安装"></a>1.6 其他安装</h3><h4 id="1-6-1-m4-的安装"><a href="#1-6-1-m4-的安装" class="headerlink" title="1.6.1 m4 的安装"></a>1.6.1 m4 的安装</h4><h5 id="1-6-1-1-离线软件包安装"><a href="#1-6-1-1-离线软件包安装" class="headerlink" title="1.6.1.1 离线软件包安装"></a>1.6.1.1 离线软件包安装</h5><p>首先需要说明的是，如果不安装m4，在安装gmp的时候系统会提示“m4: gmp configure: error: No usable m4 in $PATH or &#x2F;usr&#x2F;5bin”的错误。因此首先需要安装m4，命令如下：（以下命令中的X、Y、Z需在执行时换成具体的库版本号）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$tar –zxvf m4-X.Y.Z.tar.gz //先解压缩</span><br><span class="line">$cd m4-X.Y.Z //进入m4所在目录</span><br><span class="line">$ ./configure CC=”cc”</span><br><span class="line">$make</span><br><span class="line">$sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>由于没有指定安装目录，因此安装好后，可以查看默认的&#x2F;usr&#x2F;local&#x2F;bin目录下，有一个<br>m4的可执行文件，这是一个宏处理器。</p>
+<h5 id="1-6-1-2-在线安装"><a href="#1-6-1-2-在线安装" class="headerlink" title="1.6.1.2 在线安装"></a>1.6.1.2 在线安装</h5><p>当然，m4也可以通过命名自动安装<code>$sudo apt-get install m4</code></p>
+<h4 id="1-6-2-安装cmake"><a href="#1-6-2-安装cmake" class="headerlink" title="1.6.2 安装cmake"></a>1.6.2 安装cmake</h4><h5 id="1-6-2-1-离线软件包安装"><a href="#1-6-2-1-离线软件包安装" class="headerlink" title="1.6.2.1 离线软件包安装"></a>1.6.2.1 离线软件包安装</h5><p>使用离线安装包（如cmake-2.8.10.2.tar.gz）或从<a target="_blank" rel="noopener" href="http://www.cmake.org/%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%EF%BC%88%E5%A6%82%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96wget">http://www.cmake.org/下载安装包（如通过命令在线获取wget</a> <a target="_blank" rel="noopener" href="http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz%EF%BC%89%EF%BC%8C%E8%A7%A3%E5%8E%8B%E5%90%8E%E6%9C%89%E4%B8%80%E4%B8%AAReadme.txt%E6%96%87%E4%BB%B6%EF%BC%8C%E8%AF%A5%E6%96%87%E4%BB%B6%E7%BB%99%E5%87%BA%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E3%80%82%EF%BC%88%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E4%B8%AD%E7%9A%84X%E3%80%81Y%E3%80%81Z%E9%9C%80%E5%9C%A8%E6%89%A7%E8%A1%8C%E6%97%B6%E6%8D%A2%E6%88%90%E5%85%B7%E4%BD%93%E7%9A%84%E5%BA%93%E7%89%88%E6%9C%AC%E5%8F%B7%EF%BC%89">http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz），解压后有一个Readme.txt文件，该文件给出安装过程。（以下命令中的X、Y、Z需在执行时换成具体的库版本号）</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$tar zxvf cmake-X.Y.Z.tar.gz</span><br><span class="line">$cd cmake-X.Y.Z /</span><br><span class="line">$./configure</span><br><span class="line">$gmake（Ubuntu下没有gmake，使用make代替）</span><br><span class="line">$gmake install （Ubuntu下没有gmake，使用make代替）</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-6-2-2-在线安装"><a href="#1-6-2-2-在线安装" class="headerlink" title="1.6.2.2 在线安装"></a>1.6.2.2 在线安装</h5><p>当然，m4也可以通过命名自动安装<code>$sudo apt- get install cmake</code></p>
+<h4 id="1-6-3-安装Libtool"><a href="#1-6-3-安装Libtool" class="headerlink" title="1.6.3 安装Libtool"></a>1.6.3 安装Libtool</h4><p><a target="_blank" rel="noopener" href="http://packages.ubuntu.com/%E4%B8%AD%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E5%88%B0%E4%BB%BB%E4%BD%95ubuntu%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E3%80%82">http://packages.ubuntu.com/中可以搜索到任何ubuntu的软件包。</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$sudo dpkg -i libtool_2.4.2-1ubuntu1_i386.deb</span><br><span class="line">（可能要安装autotools-dev：sudo apt-get install autotools-dev 或者：</span><br><span class="line">         $sudo dpkg -i autotools-dev_20120210.1ubuntu1_all.deb）</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-6-4-安装gtk"><a href="#1-6-4-安装gtk" class="headerlink" title="1.6.4 安装gtk"></a>1.6.4 安装gtk</h4><h5 id="1-6-4-1-在线安装-sudo-apt-get-install-libgtk2-0-dev"><a href="#1-6-4-1-在线安装-sudo-apt-get-install-libgtk2-0-dev" class="headerlink" title="1.6.4.1 在线安装 $sudo apt-get install libgtk2.0-dev"></a>1.6.4.1 在线安装 <code>$sudo apt-get install libgtk2.0-dev</code></h5><h5 id="1-6-4-2-离线软件包安装"><a href="#1-6-4-2-离线软件包安装" class="headerlink" title="1.6.4.2 离线软件包安装"></a>1.6.4.2 离线软件包安装</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">也可以下载后离线安装。http://packages.ubuntu.com/中可以搜索到任何ubuntu的软件包。</span><br><span class="line">$sudo dpkg -i libgtk2.0-dev_2.24.10-0ubuntu6_i386.deb</span><br><span class="line">$pkg-config --modversion gtk+ //查看1.2.x版本</span><br><span class="line">$pkg-config --modversion gtk+-2.0 //查看 2.x 版本</span><br><span class="line">$pkg-config –version 查看pkg-config的版本</span><br><span class="line">$pkg-config --list-all grep gtk //查看是否安装了gtk</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line">apt-get install build-essential //安装gcc/g++/gdb/make 等基本编程工具</span><br><span class="line">apt-get install gnome-core-devel//安装libgtk2.0-dev、libglib2.0-dev等开发相关的库文件</span><br><span class="line">apt-get install pkg-config //用于在编译GTK程序时自动找出头文件及库文件位置</span><br><span class="line">apt-get install devhelp //安装devhelp GTK文档查看程序</span><br><span class="line">apt-get install libglib2.0-doc libgtk2.0-doc//安装gtk/glib的API参考手册及其它帮助文档</span><br><span class="line">apt-get install glade libglade2-dev //安装基于GTK的界面GTK是开发Gnome窗口的c/c++语言图形库</span><br><span class="line">apt-get install libgtk2.0* //gtk+2.0所需的所有文件统通下载安装完毕</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-7-测试-TPM"><a href="#1-7-测试-TPM" class="headerlink" title="1.7  测试 TPM"></a>1.7  测试 TPM</h3><p>①启动tpm</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\15.png"></p>
+<p>②启动tcsd</p>
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\16.png"></p>
+<p>③安装tpm-tools后，可以通过tpm-tools提供的命令检查TPM模拟环境。进入tpm-tools-1.3.9.2&#x2F;src&#x2F;tpm_mgmt&#x2F;目录下运行命令（在运行之前记得安装驱动，modprobe tpm_tis; sudo tcsd start）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#./tpm_version       #查看版本号</span><br><span class="line">#./tpm_getpubek      #查看ek公钥</span><br><span class="line">#./tpm_takeownership #获取owner</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\MyBlog\source_posts\可信开发环境的搭建与熟悉\17.png"></p>
+<p>如果都成功表明 TPM 模拟环境已经完全构建成功。</p>
+<p>[^注意]: 若出现Tspi_Context_Connect failed: 0x00003011 - layer&#x3D;tsp, code&#x3D;0011 (17), Communication failure等则开启tpmd和tcsd即可。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bxylmf/article/details/8546939">(74条消息) ubuntu下TPM_emulator的安装步骤_bxylmf的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Yogile/p/12328275.html">Ubuntu 18.04 LTS 构建TPM_emulator模拟器 - Yogile - 博客园 (cn blogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CSDN_FengXingwei/article/details/89342797">(74条消息) tpm_emulator 搭建 TPM 仿真环境_l龙猫先生l的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/RisingFan/article/details/80932309?spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-80932309-blog-5291569.t0_edu_mix&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-80932309-blog-5291569.t0_edu_mix&utm_relevant_index=9">(74条消息) TPM软件模拟环境搭建_RisingFan的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lwyeluo/article/details/53375386">(74条消息) TPM模拟器安装及使用说明_lwyeluo的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hustymf/article/details/9469277">(74条消息) ubuntu下安装TPM模拟器 –成功步骤_hustymf的博客-CSDN博客_tspi_context_connect failed: 0x00003011</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hpl20155329/p/9064175.html">TPM及TSS协议栈的安装使用 - 20155329胡佩伦 - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hpl20155329/p/9064175.html">TPM及TSS协议栈的安装使用 - 20155329胡佩伦 - 博客园 (cnblogs.com)</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://crazysword13.github.io">crazysword13</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://crazysword13.github.io/2022/10/18/%E5%8F%AF%E4%BF%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%86%9F%E6%82%89/">http://crazysword13.github.io/2022/10/18/%E5%8F%AF%E4%BF%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%86%9F%E6%82%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97/">可信计算</a></div><div class="post_share"><div class="social-share" data-image="/img/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/19/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"><img class="prev-cover" src="/img/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">代码注入攻击实验</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/16/%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/"><img class="next-cover" src="/img/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">网络扫描实验-课下</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/auther.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">crazysword13</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/crazysword13" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80-%E5%8F%AF%E4%BF%A1%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%86%9F%E6%82%89"><span class="toc-number">1.</span> <span class="toc-text">实验一 可信开发环境的搭建与熟悉</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">一、实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.</span> <span class="toc-text">二、实验环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">三、实验原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.4.</span> <span class="toc-text">四、实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85%E5%87%86%E5%A4%87"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.1 安装准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%86%85%E6%A0%B8"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">（1）内核</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%AE%97%E6%B3%95%E5%BA%93%E6%94%AF%E6%8C%81"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">（2）算法库支持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89Tpm-emulator%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">（3）Tpm_emulator软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89TSS%E8%BD%AF%E4%BB%B6%E6%A0%88"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">（4）TSS软件栈</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91"><span class="toc-number">1.4.2.</span> <span class="toc-text">1.2 内核编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Gmplib-%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.3.</span> <span class="toc-text">1.3 Gmplib 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E5%AE%89%E8%A3%85m4"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">1.3.1 安装m4</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E5%AE%89%E8%A3%85gmplib"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">1.3.2 安装gmplib</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Tpm-emulator-%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.4.</span> <span class="toc-text">1.4 Tpm_emulator 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-%E5%AE%89%E8%A3%85cmake"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">1.4.1 安装cmake</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-%E5%AE%89%E8%A3%85Tpm-emulator"><span class="toc-number">1.4.4.2.</span> <span class="toc-text">1.4.2 安装Tpm_emulator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">1.4.4.3.</span> <span class="toc-text">1.4.3 初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-4-%E5%90%AF%E5%8A%A8TPM%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="toc-number">1.4.4.4.</span> <span class="toc-text">1.4.4 启动TPM模拟器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-TSS-%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.5.</span> <span class="toc-text">1.5 TSS 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-1-%E8%A7%A3%E5%8E%8BTrousers%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">1.5.1 解压Trousers软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-%E9%87%8D%E5%AE%9A%E5%90%91tddl"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">1.5.2 重定向tddl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-2-%E4%BF%AE%E6%94%B9-Trousers-Bug"><span class="toc-number">1.4.5.3.</span> <span class="toc-text">1.5.2 修改 Trousers Bug</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-3-%E7%BC%96%E8%AF%91%EF%BC%8C%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.5.4.</span> <span class="toc-text">1.5.3 编译，安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-4-%E5%AE%89%E8%A3%85tpm-tools%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.4.5.5.</span> <span class="toc-text">1.5.4 安装tpm-tools软件包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-5-%E5%90%AF%E5%8A%A8Trousers"><span class="toc-number">1.4.5.6.</span> <span class="toc-text">1.5.5 启动Trousers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-6-%E6%B5%8B%E8%AF%95Trousers"><span class="toc-number">1.4.5.7.</span> <span class="toc-text">1.5.6 测试Trousers</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E5%85%B6%E4%BB%96%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.</span> <span class="toc-text">1.6 其他安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-1-m4-%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.1.</span> <span class="toc-text">1.6.1 m4 的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-1-1-%E7%A6%BB%E7%BA%BF%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.1.1.</span> <span class="toc-text">1.6.1.1 离线软件包安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-1-2-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.1.2.</span> <span class="toc-text">1.6.1.2 在线安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-2-%E5%AE%89%E8%A3%85cmake"><span class="toc-number">1.4.6.2.</span> <span class="toc-text">1.6.2 安装cmake</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-2-1-%E7%A6%BB%E7%BA%BF%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.2.1.</span> <span class="toc-text">1.6.2.1 离线软件包安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-2-2-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.2.2.</span> <span class="toc-text">1.6.2.2 在线安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-3-%E5%AE%89%E8%A3%85Libtool"><span class="toc-number">1.4.6.3.</span> <span class="toc-text">1.6.3 安装Libtool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-4-%E5%AE%89%E8%A3%85gtk"><span class="toc-number">1.4.6.4.</span> <span class="toc-text">1.6.4 安装gtk</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-4-1-%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85-sudo-apt-get-install-libgtk2-0-dev"><span class="toc-number">1.4.6.4.1.</span> <span class="toc-text">1.6.4.1 在线安装 $sudo apt-get install libgtk2.0-dev</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6-4-2-%E7%A6%BB%E7%BA%BF%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.6.4.2.</span> <span class="toc-text">1.6.4.2 离线软件包安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-%E6%B5%8B%E8%AF%95-TPM"><span class="toc-number">1.4.7.</span> <span class="toc-text">1.7  测试 TPM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.5.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/19/suricata%E5%AD%A6%E4%B9%A0/" title="suricata学习"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="suricata学习"/></a><div class="content"><a class="title" href="/2023/03/19/suricata%E5%AD%A6%E4%B9%A0/" title="suricata学习">suricata学习</a><time datetime="2023-03-19T07:58:41.000Z" title="Created 2023-03-19 15:58:41">2023-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/06/Linux%E9%85%8D%E7%BD%AElotus/" title="Linux配置lotus"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置lotus"/></a><div class="content"><a class="title" href="/2023/01/06/Linux%E9%85%8D%E7%BD%AElotus/" title="Linux配置lotus">Linux配置lotus</a><time datetime="2023-01-06T13:39:48.000Z" title="Created 2023-01-06 21:39:48">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/VPN%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="VPN配置实验-课下"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPN配置实验-课下"/></a><div class="content"><a class="title" href="/2022/12/07/VPN%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="VPN配置实验-课下">VPN配置实验-课下</a><time datetime="2022-12-07T08:44:20.000Z" title="Created 2022-12-07 16:44:20">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C/" title="格式化输出实验"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="格式化输出实验"/></a><div class="content"><a class="title" href="/2022/12/06/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C/" title="格式化输出实验">格式化输出实验</a><time datetime="2022-12-06T06:20:51.000Z" title="Created 2022-12-06 14:20:51">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/" title="VPN配置--课上"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPN配置--课上"/></a><div class="content"><a class="title" href="/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/" title="VPN配置--课上">VPN配置--课上</a><time datetime="2022-11-25T07:18:52.000Z" title="Created 2022-11-25 15:18:52">2022-11-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/1.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By crazysword13</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

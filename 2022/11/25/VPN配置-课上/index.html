@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VPN配置--课上 | 剑来</title><meta name="keywords" content="网络安全"><meta name="author" content="crazysword13"><meta name="copyright" content="crazysword13"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="VPN配置–课上实验一、实验内容在Windows IPSEC配置实验中，通过抓包工具抓取IKE SA和IPSEC SA建立过程的数据包，并进行分析。 二、实验配置两台Windows虚拟机或一台Windows虚拟机+Windows物理主机 三、实验过程1、Windows IPSEC配置1.1 Windows XP配置①打开Windows xp虚拟机，按win+R，通过secpol.msc打开本地安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPN配置--课上">
+<meta property="og:url" content="http://crazysword13.github.io/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/index.html">
+<meta property="og:site_name" content="剑来">
+<meta property="og:description" content="VPN配置–课上实验一、实验内容在Windows IPSEC配置实验中，通过抓包工具抓取IKE SA和IPSEC SA建立过程的数据包，并进行分析。 二、实验配置两台Windows虚拟机或一台Windows虚拟机+Windows物理主机 三、实验过程1、Windows IPSEC配置1.1 Windows XP配置①打开Windows xp虚拟机，按win+R，通过secpol.msc打开本地安全">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://crazysword13.github.io/img/1.png">
+<meta property="article:published_time" content="2022-11-25T07:18:52.000Z">
+<meta property="article:modified_time" content="2022-11-25T09:00:00.083Z">
+<meta property="article:author" content="crazysword13">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://crazysword13.github.io/img/1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://crazysword13.github.io/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VPN配置--课上',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-25 17:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/auther.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">剑来</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VPN配置--课上</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-25T07:18:52.000Z" title="Created 2022-11-25 15:18:52">2022-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-11-25T09:00:00.083Z" title="Updated 2022-11-25 17:00:00">2022-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%AE%9E%E9%AA%8C/">网络安全实验</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VPN配置--课上"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="VPN配置–课上实验"><a href="#VPN配置–课上实验" class="headerlink" title="VPN配置–课上实验"></a>VPN配置–课上实验</h1><h2 id="一、实验内容"><a href="#一、实验内容" class="headerlink" title="一、实验内容"></a>一、实验内容</h2><p>在<code>Windows IPSEC</code>配置实验中，通过抓包工具抓取<code>IKE SA</code>和<code>IPSEC SA</code>建立过程的数据包，并进行分析。</p>
+<h2 id="二、实验配置"><a href="#二、实验配置" class="headerlink" title="二、实验配置"></a>二、实验配置</h2><p>两台Windows虚拟机或一台Windows虚拟机+Windows物理主机</p>
+<h2 id="三、实验过程"><a href="#三、实验过程" class="headerlink" title="三、实验过程"></a>三、实验过程</h2><h3 id="1、Windows-IPSEC配置"><a href="#1、Windows-IPSEC配置" class="headerlink" title="1、Windows IPSEC配置"></a>1、Windows IPSEC配置</h3><h4 id="1-1-Windows-XP配置"><a href="#1-1-Windows-XP配置" class="headerlink" title="1.1 Windows XP配置"></a>1.1 Windows XP配置</h4><p>①打开<code>Windows xp</code>虚拟机，按<code>win+R</code>，通过<code>secpol.msc</code>打开本地安全设置。</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\1.png"></p>
+<p>②在IP安全策略下右键，创建安全策略</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\2.png"></p>
+<p>③设置配置名称为<code>liuqi</code>（个人随意）</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\3.png"></p>
+<p>④激活默认响应规则</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\4.png"></p>
+<p>身份认证方法采用<code>此字符串用来保护密钥交换</code>，输入<code>123456</code>（可以换成其他内容）</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\5.png"></p>
+<p>回到原来窗口，鼠标右键，指派</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\6.png"></p>
+<p>鼠标右键，属性，添加规则并进行相应的配置</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\7.png"></p>
+<p>选择此规则不指定隧道</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\8.png"></p>
+<p>选择所有网络连接</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\9.png"></p>
+<p>身份验证方法采用<code>此字符串用来保护密钥交换</code>，输入字符串：<code>abcdef</code>（可换成其它内容）</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\10.png"></p>
+<p>IP筛选列表选择<code>所有IP通讯量</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\11.png"></p>
+<p>筛选器操作选择<code>需要安全</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\12.png"></p>
+<p>点击下一步完成</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\13.png"></p>
+<p>至此，<code>Windows xp</code>下的<code>IPSEC</code>配置完成，操作过程中没有报错。</p>
+<h4 id="1-2-Win11主机配置"><a href="#1-2-Win11主机配置" class="headerlink" title="1.2 Win11主机配置"></a>1.2 Win11主机配置</h4><p>按<code>WIN+R</code>打开运行窗口，输入mmc</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\14.png"></p>
+<p>打开控制台界面，打开菜单 文件-&gt;添加或删除管理单元，如下图所示，选中IP安全策略管理，点击中间的 添加 按钮</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\15.png"></p>
+<p>添加完安全策略管理，点击确定，弹出选择本地计算机或域的界面，选择“本地计算机”</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\16.png"></p>
+<p>添加成功，如下图所示，右侧所选管理单元出现 <strong>IP策略，在本地计算机</strong>，点击确定</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\17.png"></p>
+<p>在IP安全策略下右键，创建安全策略</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\18.png"></p>
+<p>设置配置名称为<code>liuqis</code>（个人随意），由于激活默认响应规则仅限于windows早期版本，故不选择激活默认响应规则，过程中，没有身份认证选择</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\19.png"></p>
+<p>点击默认设置，一直到属性窗口，添加规则：选择此规则不指定隧道、选择所有网络连接、在IP筛选列表中点击添加，名称为<code>新IP筛选列表</code>，并点击添加，之后选择默认操作，选择刚刚建立的IP筛选列表，点击下一步</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\20.png"></p>
+<p>选择<code>添加IP筛选器</code>操作, 选择<code>协商安全</code>,继续默认操作，选择刚刚建立的新筛选器操作，点击下一步</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\21.png"></p>
+<p>身份验证方法采用<code>此字符串用来保护密钥交换</code>，输入字符串：<code>123456</code>(与上面的相同)</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\22.png"></p>
+<p>单击下一步，选择默认操作直至筛选器配置完成，回到原来窗口，鼠标右键，分配，至此，<code>Windows 10</code>下的<code>IPSEC</code>配置完成，操作过程中没有报错</p>
+<h3 id="2、开始通信"><a href="#2、开始通信" class="headerlink" title="2、开始通信"></a>2、开始通信</h3><p>查看<code>win xp</code>和<code>win 11</code>的IP地址分别为<code>192.168.215.128</code>和<code>192.168.215.1</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\26.png"></p>
+<p>使用<code>win 11</code>重新<code>ping</code> <code>win xp</code>，发现成功<code>ping</code>通</p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\27.png"></p>
+<p>对通信过程进行抓包，由于此时<code>win xp</code>和<code>win11</code>都采用的是默认的<code>esp加密</code>，所以抓包显示的是<code>esp包</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\28.png"></p>
+<p><code>Win 11</code>和<code>win xp</code>都设置仅<code>AH通信</code>，不经过<code>ESP加密</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\29.png"></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\30.png"></p>
+<p>继续使用<code>win 11</code> <code>ping</code> <code>win xp</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\31.png"></p>
+<p>对通信过程进行抓包，发现没有<code>ESP加密</code>后数据包格式为<code>ICMP</code></p>
+<p><img src="D:\MyBlog\source_posts\VPN配置-课上\32.png"></p>
+<h3 id="3、分析IKE-SA和IPSEC-SA建立过程"><a href="#3、分析IKE-SA和IPSEC-SA建立过程" class="headerlink" title="3、分析IKE SA和IPSEC SA建立过程"></a>3、分析<code>IKE SA</code>和<code>IPSEC SA</code>建立过程</h3><p>要建立<code>IPSec连接</code>，首先要协商一个<code>IKE SA</code>，然后在<code>IKE SA</code>的基础上协商<code>IPSec SA</code></p>
+<p>（1）IKE SA建立分为三个阶段：</p>
+<ul>
+<li><code>SA交换</code>，协商确认有关安全策略。该过程进行安全协商</li>
+<li>密钥交换阶段，主要交换密钥<code>Diffie-Hellman公共值</code>。数据包中的<code>Key Exchange</code>用于交换各自加密生成的<code>主密钥</code>；<code>Nonce</code>使用了随机数，防止重放攻击；加密所用的密钥为<code>ipsec</code>中设定的<code>预共享密钥</code>； <code>NAT-D</code>为双方的ip+端口的Hash值。</li>
+<li>ID信息和认证数据交换，进行身份认证，对第一阶段交换内容的认证。</li>
+</ul>
+<p>（2）<code>IPSec SA</code>建立分为两个阶段，都是加密数据，无法查看。用到了<code>Quick-Mode</code>，目的是在两个对等体间协商一组一致的参数来创建<code>IPSec SA</code>，用于真实数据的加解密，并且在此进行<code>PFS</code>，<code>PFS</code>及在<code>Quick-Mode</code>重新做<code>DH</code>的交换，产生新的密钥用于<code>IPSec</code>数据的加密。</p>
+<h2 id="四、实验小结"><a href="#四、实验小结" class="headerlink" title="四、实验小结"></a>四、实验小结</h2><p>在本次实验中，我学到了很多：<code>IPSec密钥交换过程</code>分为两个独立阶段。第一阶段通信双方彼此建立一个通过身份认证和安全保护的隧道，称为<code>ISAKMP SA</code>。只要<code>ISAKMP SA</code>建立起来，所有发起方和应答方之间的<code>IKE</code>通信信息都通过加密、完整性检查和认证的方法受到保护。第二阶段的建立是为特定的<code>Internet</code>安全协议(如<code>IPSec</code>等)创建安全关联(<code>IPSec SA</code>)。IKE第一阶段的目的是建立一个<code>安全隧道</code>，使得第二阶段的协商可以秘密地进行。两台主机之间可以同时建立多个<code>ISAKMP SA</code>，一个<code>ISAKMP SA</code>也可以创建多个<code>IPSec SA</code>，<code>ISAKMP SA</code>的结束不会影响它创建的<code>IPSec SA</code>发生作用。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://crazysword13.github.io">crazysword13</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://crazysword13.github.io/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/">http://crazysword13.github.io/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div><div class="post_share"><div class="social-share" data-image="/img/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/12/06/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C/"><img class="prev-cover" src="/img/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">格式化输出实验</div></div></a></div><div class="next-post pull-right"><a href="/2022/11/22/IDS%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/"><img class="next-cover" src="/img/1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">IDS实验-课下</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/10/12/DoS%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/" title="DoS攻击实验"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-12</div><div class="title">DoS攻击实验</div></div></a></div><div><a href="/2022/10/14/%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%AE%9E%E9%AA%8C/" title="网络扫描实验"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-14</div><div class="title">网络扫描实验</div></div></a></div><div><a href="/2022/10/16/%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="网络扫描实验-课下"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-16</div><div class="title">网络扫描实验-课下</div></div></a></div><div><a href="/2022/11/11/IDS%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8A/" title="IDS实验--课上"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-11</div><div class="title">IDS实验--课上</div></div></a></div><div><a href="/2022/11/22/IDS%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="IDS实验-课下"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-22</div><div class="title">IDS实验-课下</div></div></a></div><div><a href="/2022/12/07/VPN%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="VPN配置实验-课下"><img class="cover" src="/img/1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-07</div><div class="title">VPN配置实验-课下</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/auther.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">crazysword13</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/crazysword13" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VPN%E9%85%8D%E7%BD%AE%E2%80%93%E8%AF%BE%E4%B8%8A%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.</span> <span class="toc-text">VPN配置–课上实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.</span> <span class="toc-text">一、实验内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">二、实验配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">三、实验过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Windows-IPSEC%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、Windows IPSEC配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Windows-XP%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">1.1 Windows XP配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Win11%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">1.2 Win11主机配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%BC%80%E5%A7%8B%E9%80%9A%E4%BF%A1"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、开始通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E5%88%86%E6%9E%90IKE-SA%E5%92%8CIPSEC-SA%E5%BB%BA%E7%AB%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">3、分析IKE SA和IPSEC SA建立过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E5%B0%8F%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">四、实验小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/19/suricata%E5%AD%A6%E4%B9%A0/" title="suricata学习"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="suricata学习"/></a><div class="content"><a class="title" href="/2023/03/19/suricata%E5%AD%A6%E4%B9%A0/" title="suricata学习">suricata学习</a><time datetime="2023-03-19T07:58:41.000Z" title="Created 2023-03-19 15:58:41">2023-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/06/Linux%E9%85%8D%E7%BD%AElotus/" title="Linux配置lotus"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置lotus"/></a><div class="content"><a class="title" href="/2023/01/06/Linux%E9%85%8D%E7%BD%AElotus/" title="Linux配置lotus">Linux配置lotus</a><time datetime="2023-01-06T13:39:48.000Z" title="Created 2023-01-06 21:39:48">2023-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/07/VPN%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="VPN配置实验-课下"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPN配置实验-课下"/></a><div class="content"><a class="title" href="/2022/12/07/VPN%E9%85%8D%E7%BD%AE%E5%AE%9E%E9%AA%8C-%E8%AF%BE%E4%B8%8B/" title="VPN配置实验-课下">VPN配置实验-课下</a><time datetime="2022-12-07T08:44:20.000Z" title="Created 2022-12-07 16:44:20">2022-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/06/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C/" title="格式化输出实验"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="格式化输出实验"/></a><div class="content"><a class="title" href="/2022/12/06/%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C/" title="格式化输出实验">格式化输出实验</a><time datetime="2022-12-06T06:20:51.000Z" title="Created 2022-12-06 14:20:51">2022-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/" title="VPN配置--课上"><img src="/img/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VPN配置--课上"/></a><div class="content"><a class="title" href="/2022/11/25/VPN%E9%85%8D%E7%BD%AE-%E8%AF%BE%E4%B8%8A/" title="VPN配置--课上">VPN配置--课上</a><time datetime="2022-11-25T07:18:52.000Z" title="Created 2022-11-25 15:18:52">2022-11-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/1.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By crazysword13</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
